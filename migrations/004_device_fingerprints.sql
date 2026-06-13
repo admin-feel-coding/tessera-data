@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS device_fingerprints (
+    device_id TEXT PRIMARY KEY,
+    first_seen TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    last_seen TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    user_count INT NOT NULL DEFAULT 1,
+    suspicious BOOLEAN NOT NULL DEFAULT FALSE
+);

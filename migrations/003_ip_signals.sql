@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS ip_signals (
+    ip TEXT PRIMARY KEY,
+    risk_score NUMERIC(4,3) NOT NULL DEFAULT 0.0,
+    country TEXT NOT NULL DEFAULT 'unknown',
+    is_vpn BOOLEAN NOT NULL DEFAULT FALSE,
+    last_seen TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);

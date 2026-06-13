@@ -1,0 +1,14 @@
+# Environment
+.env
+.env.*
+!.env.example
+
+# Go binaries
+bin/
+*.exe
+tessera-data
+seed
+seed_eval
+
+# OS
+.DS_Store
