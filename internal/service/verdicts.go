@@ -28,6 +28,13 @@ type SaveVerdictInput struct {
 	Model            string         `json:"model"`
 	ToolCalls        int            `json:"tool_calls"`
 	LangfuseTraceID  string         `json:"langfuse_trace_id"`
+	// Velocity fields — used to upsert transaction signal columns.
+	UserID    string  `json:"user_id"`
+	Amount    float64 `json:"amount"`
+	Currency  string  `json:"currency"`
+	IPAddress string  `json:"ip_address"`
+	CardBin   string  `json:"card_bin"`
+	DeviceID  string  `json:"device_id"`
 }
 
 // SaveVerdict validates the input and persists a new verdict.
@@ -47,6 +54,12 @@ func SaveVerdict(ctx context.Context, pool *pgxpool.Pool, in SaveVerdictInput) (
 		Model:            in.Model,
 		ToolCalls:        in.ToolCalls,
 		LangfuseTraceID:  in.LangfuseTraceID,
+		UserID:           in.UserID,
+		Amount:           in.Amount,
+		Currency:         in.Currency,
+		IPAddress:        in.IPAddress,
+		CardBin:          in.CardBin,
+		DeviceID:         in.DeviceID,
 	}
 	return store.SaveVerdict(ctx, pool, s)
 }

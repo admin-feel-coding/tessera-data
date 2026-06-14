@@ -20,6 +20,7 @@ import (
 	"github.com/feel-coding/tessera-data/internal/config"
 	"github.com/feel-coding/tessera-data/internal/handler"
 	"github.com/feel-coding/tessera-data/internal/httpx"
+	"github.com/feel-coding/tessera-data/internal/service"
 	"github.com/feel-coding/tessera-data/internal/store"
 )
 
@@ -54,6 +55,10 @@ func main() {
 	casesH := handler.NewCases(pool)
 	verdictsH := handler.NewVerdicts(pool)
 
+	velocityStore := store.NewVelocityStore(pool)
+	velocitySvc := service.NewVelocityService(velocityStore)
+	velocityH := handler.NewVelocityHandler(velocitySvc)
+
 	r := chi.NewRouter()
 
 	// Health is unauthenticated — used by Docker Compose and Cloud Run readiness checks.
@@ -73,6 +78,7 @@ func main() {
 		r.Post("/verdicts", verdictsH.Save)
 		r.Get("/verdicts", verdictsH.List)
 		r.Get("/verdicts/{transaction_id}", verdictsH.GetByTransactionID)
+		r.Get("/velocity/check", velocityH.Check)
 	})
 
 	srv := &http.Server{

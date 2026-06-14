@@ -1,0 +1,4 @@
+ALTER TABLE verdicts
+    ADD COLUMN IF NOT EXISTS input_tokens  INTEGER,
+    ADD COLUMN IF NOT EXISTS output_tokens INTEGER,
+    ADD COLUMN IF NOT EXISTS cost_usd      NUMERIC(10, 6);
